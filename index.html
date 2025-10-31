@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Возрастание</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <h1>Проверка возрастающей последовательности</h1>
+    <form id="numberForm">
+        <label>Введите 10 чисел (через запятую):</label>
+        <input type="text" id="numbers" required>
+        <button type="submit">Проверить</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('numberForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const input = document.getElementById('numbers').value;
+            const numbers = input.split(',').map(num => parseFloat(num.trim()));
+            
+            if (numbers.length !== 10 || numbers.some(isNaN)) {
+                alert('Введите ровно 10 вещественных чисел, разделенных запятыми!');
+                return;
+            }
+
+            let isIncreasing = true;
+            for (let i = 1; i < numbers.length; i++) {
+                if (numbers[i] <= numbers[i - 1]) {
+                    isIncreasing = false;
+                    break;
+                }
+            }
+
+            document.getElementById('result').textContent = 
+                `Последовательность ${isIncreasing ? 'возрастающая' : 'не возрастающая'}.`;
+        });
+    </script>
+</body>
+</html>
